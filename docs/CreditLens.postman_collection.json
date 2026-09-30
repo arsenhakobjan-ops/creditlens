@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "CreditLens QA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Stable assessment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/evaluate",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"income\": 450000,\n  \"expenses\": 180000,\n  \"existing_debt\": 40000,\n  \"amount\": 2000000,\n  \"annual_rate\": 18,\n  \"months\": 36,\n  \"late_days\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid income",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/evaluate",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"income\": 0,\n  \"expenses\": 180000,\n  \"existing_debt\": 40000,\n  \"amount\": 2000000,\n  \"annual_rate\": 18,\n  \"months\": 36,\n  \"late_days\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Evaluation history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/api/history"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
