@@ -10,7 +10,7 @@
 python app.py
 ```
 
-Բացել [http://127.0.0.1:8000 ](https://creditlens-arsen.arsenhakobjan.chatgpt.site)։ Windows-ում կարելի է օգտագործել `py app.py`։ Այլ պորտի համար՝ `python app.py --port 8080`։
+Բացել [http://127.0.0.1:8000 ](https://creditscore.arsenhakobjan.chatgpt.site/)։ Windows-ում կարելի է օգտագործել `py app.py`։ Այլ պորտի համար՝ `python app.py --port 8080`։
 
 ## Ինչպես է աշխատում
 
